@@ -1,10 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Country information</title>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<div class="all-container flex">
+			<div class="static-container flex">
+				<h1 class="title">Explore the globe!</h1>
+				<img class="globe" src="/assets/globe_still.png" alt="globe" />
+				<div class="search-container">
+					<form action=""></form>
+					<input id="search-input" type="text" name="search" placeholder="Type a country name..." />
+					<button id="search-btn">search</button>
+				</div>
+			</div>
+			<div class="response-box">
+				<div class="title-container"></div>
+				<hr class="response-ruler" />
+				<div class="description-container"></div>
+			</div>
+		</div>
 
-</body>
+		<script src="./node_modules/axios/dist/axios.min.js"></script>
+		<script src="main.js"></script>
+	</body>
 </html>
