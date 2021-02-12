@@ -96,6 +96,10 @@ h2 {
     visibility: visible;
 }
 
+.error-message {
+    margin: 2em;
+}
+
 .title-container {
 	display: flex;
 }

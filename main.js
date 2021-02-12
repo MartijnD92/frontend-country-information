@@ -1,5 +1,6 @@
 const searchInput = document.querySelector('#search-input');
 const searchBtn = document.querySelector('#search-btn');
+const containerAll = document.querySelector('.all-container');
 const responseBox = document.querySelector('.response-box');
 const titleContainer = document.querySelector('.title-container');
 const descriptionContainer = document.querySelector('.description-container');
@@ -7,69 +8,77 @@ const descriptionContainer = document.querySelector('.description-container');
 async function getCountry() {
 	const country = searchInput.value;
 	const spinner = document.querySelector('.globe');
+	responseBox.classList.remove('visible');
+
+	const errorMessage = document.querySelector('.error-message');
+	if (errorMessage) {
+		containerAll.removeChild(errorMessage);
+	}
+
+	if (titleContainer.hasChildNodes()) {
+		removeAllChildNodes(titleContainer);
+		removeAllChildNodes(descriptionContainer);
+	}
 
 	try {
-        if (searchInput.value != '' && !responseBox.classList.contains('visible')) {
+		spinner.setAttribute('src', '/assets/globe.gif');
+		const response = await axios.get(
+			`https://restcountries.eu/rest/v2/name/${country}?fullText=true`
+		);
+		const data = response.data[0];
 
-            spinner.setAttribute('src', '/assets/globe.gif');
-            const response = await axios.get(
-                `https://restcountries.eu/rest/v2/name/${country}?fullText=true`
-            );
-            const data = response.data[0];
-            console.log(data);
+		const flag = document.createElement('img');
+		flag.classList.add('flag');
+		flag.setAttribute('src', data.flag);
 
-            const flag = document.createElement('img');
-            flag.classList.add('flag');
-            flag.setAttribute('src', data.flag);
+		const countryName = document.createElement('h2');
+		countryName.classList.add('country-name');
+		countryName.textContent = data.name;
 
-            const countryName = document.createElement('h2');
-            countryName.classList.add('country-name');
-            countryName.textContent = data.name;
+		const countryInfo = document.createElement('p');
+		countryInfo.classList.add('country-info');
+		countryInfo.textContent = addGeneralInfo(data);
 
-            const countryInfo = document.createElement('p');
-            countryInfo.classList.add('country-info');
-            countryInfo.textContent = addGeneralInfo(data);
+		titleContainer.appendChild(flag);
+		titleContainer.appendChild(countryName);
+		descriptionContainer.append(countryInfo);
 
-            titleContainer.appendChild(flag);
-            titleContainer.appendChild(countryName);
-            descriptionContainer.append(countryInfo);
-
-            responseBox.classList.add('visible');
-            searchInput.value = '';
-        } else {
-            responseBox.classList.remove('visible');
-            while (titleContainer.firstChild) {
-                titleContainer.removeChild(titleContainer.lastChild);
-                descriptionContainer.removeChild(descriptionContainer.lastChild);
-            }
-        }
-	} catch (error) {
-		if (error.type === 'Type Error') {
-            console.log('Type Error!');
-        }
+		responseBox.classList.add('visible');
+	} catch (e) {
+		const errorMessage = document.createElement('p');
+		errorMessage.classList.add('error-message');
+		errorMessage.textContent = 'Please insert a country name!';
+		containerAll.insertBefore(errorMessage, responseBox);
 	}
 	spinner.setAttribute('src', '/assets/globe_still.png');
+	searchInput.value = '';
 }
 
 function addGeneralInfo(country) {
-	return `${country.name} is situated in ${country.subregion}.
+	return `${country.name} (${country.nativeName}) is situated in ${country.subregion ? country.subregion : 'no subregion'}.
     It has a population of ${country.population.toLocaleString()} people.
-    The capital is ${country.capital} ${addCurrency(country.currencies)}.
-    ${addLanguages(country.languages)}.`;
+    The capital is ${country.capital ? country.capital : 'non-existent'}, ${getCurrency(country.currencies)}. ${country.demonym} ${getLanguages(country.languages)}.`;
 }
 
-function addCurrency(currencies) {
+function getCurrency(currencies) {
 	let string = `and you pay with ${currencies[0].name}s`;
 	if (currencies.length > 1) {
-		for (currency of currencies) {
-			string += ` and ${currency.name}s`;
+		for (let i = 1; i < currencies.length; i++) {
+			if (currencies[i].name === null) {
+				break;
+			}
+			if (i === currencies.length - 1) {
+				string += ` and ${currencies[i].name}s`;
+			} else {
+				string += `, ${currencies[i].name}s`;
+			}
 		}
 	}
 	return string;
 }
 
-function addLanguages(languages) {
-	let string = `They speak ${languages[0].name}`;
+function getLanguages(languages) {
+	let string = ` people speak ${languages[0].name}`;
 	if (languages.length > 1) {
 		for (let i = 1; i < languages.length; i++) {
 			if (i === languages.length - 1) {
@@ -82,14 +91,18 @@ function addLanguages(languages) {
 	return string;
 }
 
-// getCountry();
 searchBtn.addEventListener('click', getCountry);
-searchInput.addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-        getCountry();
-    }
+searchInput.addEventListener('keydown', function (event) {
+	if (event.key === 'Enter') {
+		getCountry();
+	}
 });
 
+function removeAllChildNodes(parent) {
+	while (parent.firstChild) {
+		parent.removeChild(parent.firstChild);
+	}
+}
 
 // Checken welke landen er meer dan 1 valuta hebben:
 // fetch('https://restcountries.eu/rest/v2/').then((res) => res.json()).then(countries => {
