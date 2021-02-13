@@ -21,7 +21,7 @@ async function getCountry() {
 	}
 
 	try {
-		spinner.setAttribute('src', '/assets/globe.gif');
+		spinner.setAttribute('src', 'assets/globe.gif');
 		const response = await axios.get(
 			`https://restcountries.eu/rest/v2/name/${country}?fullText=true`
 		);
@@ -50,14 +50,14 @@ async function getCountry() {
 		errorMessage.textContent = 'Please insert a country name!';
 		containerAll.insertBefore(errorMessage, responseBox);
 	}
-	spinner.setAttribute('src', '/assets/globe_still.png');
+	spinner.setAttribute('src', 'assets/globe_still.png');
 	searchInput.value = '';
 }
 
 function addGeneralInfo(country) {
-	return `${country.name} (${country.nativeName}) is situated in ${country.subregion ? country.subregion : 'no subregion'}.
+	return `${country.name} (${country.nativeName}) is situated in the region of ${country.subregion ? country.subregion : 'N/A'}.
     It has a population of ${country.population.toLocaleString()} people.
-    The capital is ${country.capital ? country.capital : 'non-existent'}, ${getCurrency(country.currencies)}. ${country.demonym} ${getLanguages(country.languages)}.`;
+    The capital is ${country.capital ? country.capital : 'N/A'}, ${getCurrency(country.currencies)}. ${country.demonym} ${getLanguages(country.languages)}.`;
 }
 
 function getCurrency(currencies) {
@@ -104,8 +104,8 @@ function removeAllChildNodes(parent) {
 	}
 }
 
-// Checken welke landen er meer dan 1 valuta hebben:
+// Checken welke landen er tot een bepaalde categorie behoren:
 // fetch('https://restcountries.eu/rest/v2/').then((res) => res.json()).then(countries => {
-// const what = countries.filter(country => country.currencies.length > 1)
+// const what = countries.filter(country => country.capital === '');
 // const names = what.map(country => country.name)
 // console.log(names)});
