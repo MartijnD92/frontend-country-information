@@ -21,7 +21,7 @@ async function getCountry() {
 	}
 
 	try {
-		spinner.setAttribute('src', 'assets/globe.gif');
+		spinner.setAttribute('src', './assets/globe.gif');
 		const response = await axios.get(
 			`https://restcountries.eu/rest/v2/name/${country}?fullText=true`
 		);
@@ -50,7 +50,7 @@ async function getCountry() {
 		errorMessage.textContent = 'Please insert a country name!';
 		containerAll.insertBefore(errorMessage, responseBox);
 	}
-	spinner.setAttribute('src', 'assets/globe_still.png');
+	spinner.setAttribute('src', './assets/globe_still.png');
 	searchInput.value = '';
 }
 
