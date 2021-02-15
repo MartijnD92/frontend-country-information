@@ -26,6 +26,7 @@ async function getCountry() {
 			`https://restcountries.eu/rest/v2/name/${country}?fullText=true`
 		);
 		const data = response.data[0];
+		console.log(data);
 
 		const flag = document.createElement('img');
 		flag.classList.add('flag');
@@ -55,9 +56,13 @@ async function getCountry() {
 }
 
 function addGeneralInfo(country) {
-	return `${country.name} (${country.nativeName}) is situated in the region of ${country.subregion ? country.subregion : 'N/A'}.
+	return `${country.name} (${country.nativeName}) is situated in the region of ${
+		country.subregion ? country.subregion : 'N/A'
+	}.
     It has a population of ${country.population.toLocaleString()} people.
-    The capital is ${country.capital ? country.capital : 'N/A'}, ${getCurrency(country.currencies)}. ${country.demonym} ${getLanguages(country.languages)}.`;
+    The capital is ${country.capital ? country.capital : 'N/A'}, ${getCurrency(
+		country.currencies
+	)}. ${country.demonym} ${getLanguages(country.languages)}.`;
 }
 
 function getCurrency(currencies) {
@@ -106,6 +111,6 @@ function removeAllChildNodes(parent) {
 
 // Checken welke landen er tot een bepaalde categorie behoren:
 // fetch('https://restcountries.eu/rest/v2/').then((res) => res.json()).then(countries => {
-// const what = countries.filter(country => country.capital === '');
+// const what = countries.filter(country => country.languages.length > 2);
 // const names = what.map(country => country.name)
 // console.log(names)});
