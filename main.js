@@ -26,7 +26,6 @@ async function getCountry() {
 			`https://restcountries.eu/rest/v2/name/${country}?fullText=true`
 		);
 		const data = response.data[0];
-		console.log(data);
 
 		const flag = document.createElement('img');
 		flag.classList.add('flag');
