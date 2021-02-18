@@ -61,7 +61,7 @@ function addGeneralInfo(country) {
     It has a population of ${country.population.toLocaleString()} people.
     The capital is ${country.capital ? country.capital : 'N/A'}, ${getCurrency(
 		country.currencies
-	)}. ${country.demonym} ${getLanguages(country.languages)}.`;
+	)}. ${country.demonym ? country.demonym : country.name} ${getLanguages(country.languages)}.`;
 }
 
 function getCurrency(currencies) {
