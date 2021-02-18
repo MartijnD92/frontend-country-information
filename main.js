@@ -55,13 +55,11 @@ async function getCountry() {
 }
 
 function addGeneralInfo(country) {
-	return `${country.name} (${country.nativeName}) is situated in the region of ${
-		country.subregion ? country.subregion : 'N/A'
-	}.
+	return `${country.name} (${country.nativeName}) is situated in the region of ${country.subregion || 'N/A'}.
     It has a population of ${country.population.toLocaleString()} people.
-    The capital is ${country.capital ? country.capital : 'N/A'}, ${getCurrency(
+    The capital is ${country.capital || 'N/A'}, ${getCurrency(
 		country.currencies
-	)}. ${country.demonym ? country.demonym : country.name} ${getLanguages(country.languages)}.`;
+	)}. ${country.demonym || country.name} ${getLanguages(country.languages)}.`;
 }
 
 function getCurrency(currencies) {
