@@ -46,6 +46,10 @@ nav a {
 	color: #333;
 }
 
+nav a.active {
+	border-bottom: 3px solid #333;
+}
+
 .title {
 	margin-top: 1em;
 	font-size: 3em;

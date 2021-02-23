@@ -30,35 +30,29 @@ function makeList(countryName, countryFlag, countryRegion) {
 	country.appendChild(name);
 	list.appendChild(country);
 
-	
+
 }
 
-function colorCodeCountry(element, countryRegion) {
+function colorCodeCountry(nameElement, countryRegion) {
 	switch (countryRegion) {
 		case 'Africa':
-			element.classList.add('africa');
+			nameElement.classList.add('africa');
 			break;
 		case 'Americas':
-			element.classList.add('americas');
+			nameElement.classList.add('americas');
 			break;
 		case 'Asia':
-			element.classList.add('asia');
+			nameElement.classList.add('asia');
 			break;
 		case 'Europe':
-			element.classList.add('europe');
+			nameElement.classList.add('europe');
 			break;
 		case 'Oceania':
-			element.classList.add('oceania');
+			nameElement.classList.add('oceania');
 			break;
 		case 'Polar':
-			element.classList.add('polar');
+			nameElement.classList.add('polar');
 			break;
-	}
-}
-
-function showPopulation(countries) {
-	for (country of countries) {
-		const { population } = country;
 	}
 }
 
