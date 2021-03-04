@@ -5,7 +5,7 @@ async function sortCountries() {
 			(country1, country2) => country1.population - country2.population
 		);
 		for (country of sortedCountries) {
-			const { name, flag, population, region } = country;
+			const { name, flag, region } = country;
 			addCountryToList(name, flag, region);
 		}
 	} catch (e) {

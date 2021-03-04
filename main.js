@@ -6,7 +6,7 @@ const titleContainer = document.querySelector('.title-container');
 const descriptionContainer = document.querySelector('.description-container');
 
 async function getCountry() {
-	const country = searchInput.value;
+	const query = searchInput.value;
 	const spinner = document.querySelector('.globe');
 	responseBox.classList.remove('visible');
 
@@ -23,23 +23,24 @@ async function getCountry() {
 	try {
 		spinner.setAttribute('src', './assets/globe.gif');
 		const response = await axios.get(
-			`https://restcountries.eu/rest/v2/name/${country}?fullText=true`
+			`https://restcountries.eu/rest/v2/name/${query}?fullText=true`
 		);
-		const data = response.data[0];
+		const country = response.data[0];
+		const { name, flag } = country;
 
-		const flag = document.createElement('img');
-		flag.classList.add('flag');
-		flag.setAttribute('src', data.flag);
+		const flagImg = document.createElement('img');
+		flagImg.classList.add('flag');
+		flagImg.setAttribute('src', flag);
 
 		const countryName = document.createElement('h2');
 		countryName.classList.add('country-name');
-		countryName.textContent = data.name;
+		countryName.textContent = name;
 
 		const countryInfo = document.createElement('p');
 		countryInfo.classList.add('country-info');
-		countryInfo.textContent = addGeneralInfo(data);
+		countryInfo.textContent = addGeneralInfo(country);
 
-		titleContainer.appendChild(flag);
+		titleContainer.appendChild(flagImg);
 		titleContainer.appendChild(countryName);
 		descriptionContainer.append(countryInfo);
 
@@ -54,12 +55,12 @@ async function getCountry() {
 	searchInput.value = '';
 }
 
-function addGeneralInfo(country) {
-	return `${country.name} (${country.nativeName}) is situated in the region of ${country.subregion || 'N/A'}.
-    It has a population of ${country.population.toLocaleString()} people.
-    The capital is ${country.capital || 'N/A'}, ${getCurrency(
-		country.currencies
-	)}. ${country.demonym || country.name} ${getLanguages(country.languages)}.`;
+function addGeneralInfo({ name, nativeName, subregion, population, capital, currencies, demonym, languages }) {
+	return `${name} (${nativeName}) is situated in the region of ${subregion || 'N/A'}.
+    It has a population of ${population.toLocaleString()} people.
+    The capital is ${capital || 'N/A'}, ${getCurrency(
+		currencies
+	)}. ${demonym || name} ${getLanguages(languages)}.`;
 }
 
 function getCurrency(currencies) {
