@@ -1,5 +1,5 @@
-const searchInput = document.querySelector('#search-input');
-const searchBtn = document.querySelector('#search-btn');
+const searchInput = document.querySelector('.search-input');
+const searchBtn = document.querySelector('.search-btn');
 const containerAll = document.querySelector('.all-container');
 const responseBox = document.querySelector('.response-box');
 const titleContainer = document.querySelector('.title-container');

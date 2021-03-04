@@ -1,3 +1,4 @@
+@import 'variables';
 @import url('https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap');
 
 *,
@@ -8,21 +9,24 @@
 	margin: 0;
 }
 
+html {
+	scroll-behavior: smooth;
+}
+
 body {
-	/* height: 100vh; */
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: center;
 	padding: 0 50px;
 	font-family: 'Hammersmith One', sans-serif;
-	background: #fff;
-	color: #333;
+	background: $bg-color;
+	color: $body-color;
 }
 
 h1,
 h2 {
-    color: #1b1b1b;
+	color: $title-color;
 }
 
 header {
@@ -30,24 +34,26 @@ header {
 	height: 50px;
 }
 
-nav ul {
-	display: flex;
-	justify-content: flex-end;
-	margin: 20px;
-	list-style: none;
-}
+nav {
+	ul {
+		display: flex;
+		justify-content: flex-end;
+		margin: 20px;
+		list-style: none;
 
-nav li {
-	padding: 20px;
-}
+		li {
+			padding: 20px;
+		}
+	}
 
-nav a {
-	text-decoration: none;
-	color: #333;
-}
+	a {
+		text-decoration: none;
+		color: $body-color;
 
-nav a.active {
-	border-bottom: 3px solid #333;
+		&.active {
+			border-bottom: 3px solid $body-color;
+		}
+	}
 }
 
 .title {
@@ -71,7 +77,7 @@ nav a.active {
 }
 
 .static-container {
-    width: 420px;
+	width: 420px;
 }
 
 .search-container {
@@ -79,51 +85,50 @@ nav a.active {
 	width: 100%;
 }
 
-#search-input,
-#search-btn,
+.search-input,
+.search-btn,
 .response-box {
-	box-shadow: 2px 1px 15px rgba(90, 90, 90, 0.3);
+	box-shadow: $box-shadow;
 }
 
-#search-input {
+.search-input {
 	width: 100%;
-	border: 2px solid #eee;
+	border: 2px solid $border-color;
 	border-right: 0;
 	border-radius: 5px 0 0 5px;
 	padding: 0.5em 1em;
 	margin-right: 0;
-	background: #f1f1f1;
+	background: $bg-color--alt;
 }
 
-#search-btn {
+.search-btn {
 	padding: 0.5em 1em;
 	margin-left: 0;
-    border: 2px solid rgb(83, 212, 83);
+	border: 2px solid $search-btn-bg-color;
 	border-radius: 0 5px 5px 0;
-	background: rgb(83, 212, 83);
-	color: #fff;
+	background: $search-btn-bg-color;
+	color: $search-btn-text-color;
 	text-transform: uppercase;
-}
 
-#search-btn:active {
-    background: rgb(79, 185, 79);
+	&:active {
+		background: $search-btn-bg-color--light;
+	}
 }
-
 
 .response-box {
 	width: 100%;
-	background: #f1f1f1;
+	background: $bg-color--alt;
 	padding: 1em 2em;
 	margin: 2em;
-    visibility: hidden;
+	visibility: hidden;
 }
 
 .visible {
-    visibility: visible;
+	visibility: visible;
 }
 
 .error-message {
-    margin: 2em;
+	margin: 2em;
 }
 
 .title-container {
@@ -142,14 +147,13 @@ nav a.active {
 
 .response-ruler {
 	height: 1px;
-	background: rgba(51, 51, 51, 0.1);
+	background: $ruler-color;
 	border: 0;
 }
 
 .description-container {
 	margin: 1em;
 }
-
 
 /*******
 WORLD REGIONS
@@ -159,13 +163,29 @@ WORLD REGIONS
 	max-width: 1000px;
 }
 
+.arrow-down {
+	width: 4rem;
+	height: 4rem;
+	display: block;
+	margin-top: -90px;
+	color: $title-color;
+	cursor: pointer;
+	animation: move-down 500ms infinite alternate cubic-bezier(0.41, -0.42, 1, 1.97);
+}
+
+@keyframes move-down {
+	50%, 100% {
+		transform: translateY(10%);
+	}
+}
+
 .country-container {
 	width: 100%;
 	margin: 3em;
 	padding: 2em;
 	font-size: 0.8rem;
-	background: #f1f1f1;
-	border: 1px solid #ddd;
+	background: $bg-color--alt;
+	border: 1px solid $border-color;
 }
 
 .list {
@@ -173,7 +193,9 @@ WORLD REGIONS
 }
 
 .list li {
-    padding: 10px 0 0 10px;
+	padding: 10px 0 0 10px;
+	display: flex;
+	align-items: center;
 }
 
 .country-flag {
@@ -183,25 +205,25 @@ WORLD REGIONS
 }
 
 .europe {
-	color: rgb(248, 212, 89);
+	background: $europe;
 }
 
 .africa {
-	color: rgb(91, 118, 187);
+	background: $africa;
 }
 
 .americas {
-	color: rgb(90, 128, 89);
+	background: $americas;
 }
 
 .asia {
-	color: rgb(193, 87, 94);
+	background: $asia;
 }
 
 .oceania {
-	color: rgb(154, 90, 180);
+	background: $oceania;
 }
 
 .polar {
-    color: rgb(50, 224, 255);
+	background: $polar;
 }

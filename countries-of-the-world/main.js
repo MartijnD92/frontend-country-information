@@ -6,14 +6,14 @@ async function sortCountries() {
 		);
 		for (country of sortedCountries) {
 			const { name, flag, population, region } = country;
-			makeList(name, flag, region);
+			addCountryToList(name, flag, region);
 		}
 	} catch (e) {
 		console.log(e);
 	}
 }
 
-function makeList(countryName, countryFlag, countryRegion) {
+function addCountryToList(countryName, countryFlag, countryRegion) {
 	const list = document.querySelector('.list');
 	let country = document.createElement('li');
 	let name = document.createElement('span');
@@ -29,8 +29,6 @@ function makeList(countryName, countryFlag, countryRegion) {
 	country.appendChild(flag);
 	country.appendChild(name);
 	list.appendChild(country);
-
-
 }
 
 function colorCodeCountry(nameElement, countryRegion) {
