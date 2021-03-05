@@ -53,6 +53,7 @@ async function getCountry() {
 
 		responseBox.classList.add('visible');
 	} catch (e) {
+		console.error(e)
 		const errorMessage = document.createElement('p');
 		errorMessage.classList.add('error-message');
 		errorMessage.textContent = 'Please insert a country name!';
@@ -62,40 +63,58 @@ async function getCountry() {
 	searchInput.value = '';
 }
 
-function addGeneralInfo({ name, nativeName, subregion, population, capital, currencies, demonym, languages }) {
+function addGeneralInfo({
+	name,
+	nativeName,
+	subregion,
+	population,
+	capital,
+	currencies,
+	demonym,
+	languages,
+}) {
 	return `${name} (${nativeName}) is situated in the region of ${subregion || 'N/A'}.
     It has a population of ${population.toLocaleString()} people.
-    The capital is ${capital || 'N/A'}, ${getCurrency(
-		currencies
-	)}. ${demonym || name} ${getLanguages(languages)}.`;
+    The capital is ${capital || 'N/A'}, ${getCurrency(currencies)}. ${demonym || name} ${getLanguages(languages)}.`;
 }
 
 function getCurrency(currencies) {
-	let string = `and you pay with ${currencies[0].name}s`;
-	if (currencies.length > 1) {
-		for (let i = 1; i < currencies.length; i++) {
-			if (currencies[i].name === null) {
+	let string = 'and you pay with ';
+	let lastIndex = currencies.length - 1;
+	if (currencies[lastIndex].name === null) lastIndex = currencies.length - 2;
+
+	for (let currency of currencies) {
+		if (currency.name === null) {
+			continue;
+		}
+		switch (currencies.indexOf(currency)) {
+			case 0:
+				string += `${currency.name}s`;
 				break;
-			}
-			if (i === currencies.length - 1) {
-				string += ` and ${currencies[i].name}s`;
-			} else {
-				string += `, ${currencies[i].name}s`;
-			}
+			case lastIndex:
+				string += ` and ${currency.name}s`;
+				break;
+			default:
+				string += `, ${currency.name}s`;
+				break;
 		}
 	}
 	return string;
 }
 
 function getLanguages(languages) {
-	let string = ` people speak ${languages[0].name}`;
-	if (languages.length > 1) {
-		for (let i = 1; i < languages.length; i++) {
-			if (i === languages.length - 1) {
-				string += ` and ${languages[i].name}`;
-			} else {
-				string += `, ${languages[i].name}`;
-			}
+	let string = ' people speak ';
+	for (let language of languages) {
+		switch (languages.indexOf(language)) {
+			case 0:
+				string += language.name;
+				break;
+			case languages.length - 1:
+				string += ` and ${language.name}`;
+				break;
+			default:
+				string += `, ${language.name}`;
+				break;
 		}
 	}
 	return string;
@@ -109,6 +128,6 @@ function removeAllChildNodes(parent) {
 
 // Checken welke landen er tot een bepaalde categorie behoren:
 // fetch('https://restcountries.eu/rest/v2/').then((res) => res.json()).then(countries => {
-// const what = countries.filter(country => country.languages.length > 2);
+// const what = countries.filter(country => country.currencies.length > 2);
 // const names = what.map(country => country.name)
 // console.log(names)});

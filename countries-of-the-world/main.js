@@ -8,6 +8,8 @@ async function sortCountries() {
 			const { name, flag, region } = country;
 			addCountryToList(name, flag, region);
 		}
+
+		
 	} catch (e) {
 		console.log(e);
 	}
