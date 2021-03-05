@@ -5,6 +5,13 @@ const responseBox = document.querySelector('.response-box');
 const titleContainer = document.querySelector('.title-container');
 const descriptionContainer = document.querySelector('.description-container');
 
+searchBtn.addEventListener('click', getCountry);
+searchInput.addEventListener('keydown', function (event) {
+	if (event.key === 'Enter') {
+		getCountry();
+	}
+});
+
 async function getCountry() {
 	const query = searchInput.value;
 	const spinner = document.querySelector('.globe');
@@ -93,13 +100,6 @@ function getLanguages(languages) {
 	}
 	return string;
 }
-
-searchBtn.addEventListener('click', getCountry);
-searchInput.addEventListener('keydown', function (event) {
-	if (event.key === 'Enter') {
-		getCountry();
-	}
-});
 
 function removeAllChildNodes(parent) {
 	while (parent.firstChild) {
