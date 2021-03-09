@@ -204,6 +204,15 @@ WORLD REGIONS
 	margin-right: 10px;
 }
 
+.country-link {
+	text-decoration: none;
+	color: $body-color;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
 .europe {
 	background: $europe;
 }

@@ -8,8 +8,6 @@ async function sortCountries() {
 			const { name, flag, region } = country;
 			addCountryToList(name, flag, region);
 		}
-
-		
 	} catch (e) {
 		console.log(e);
 	}
@@ -17,19 +15,23 @@ async function sortCountries() {
 
 function addCountryToList(countryName, countryFlag, countryRegion) {
 	const list = document.querySelector('.list');
-	let country = document.createElement('li');
-	let name = document.createElement('span');
-	let flag = document.createElement('img');
+	const country = document.createElement('li');
+	const name = document.createElement('span');
+	const flag = document.createElement('img');
+	const link = document.createElement('a');
 
-	name.classList.add('country-name');
-	flag.classList.add('country-flag');
+	name.className = 'country-name';
+	flag.className = 'country-flag';
+	link.className = 'country-link';
 
 	name.textContent = countryName;
 	colorCodeCountry(name, countryRegion);
 	flag.setAttribute('src', countryFlag);
+	link.setAttribute('href', `../?country=${countryName}`);
 
-	country.appendChild(flag);
-	country.appendChild(name);
+	link.appendChild(flag);
+	link.appendChild(name);
+	country.appendChild(link);
 	list.appendChild(country);
 }
 

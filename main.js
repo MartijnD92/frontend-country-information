@@ -4,16 +4,30 @@ const containerAll = document.querySelector('.all-container');
 const responseBox = document.querySelector('.response-box');
 const titleContainer = document.querySelector('.title-container');
 const descriptionContainer = document.querySelector('.description-container');
+const queryParams = new URLSearchParams(window.location.search);
+let query;
 
-searchBtn.addEventListener('click', getCountry);
-searchInput.addEventListener('keydown', function (event) {
-	if (event.key === 'Enter') {
+if (queryParams.has('country')) {
+	document.addEventListener('DOMContentLoaded', () => {
+		query = queryParams.get('country');
+		getCountry();
+	});
+}
+searchBtn.addEventListener('click', () => {
+	query = searchInput.value;
+	getCountry();
+});
+searchInput.addEventListener('keydown', (e) => {
+	if (e.key === 'Enter') {
+		query = searchInput.value;
 		getCountry();
 	}
 });
 
 async function getCountry() {
-	const query = searchInput.value;
+	queryParams.set('country', query);
+	history.pushState(null, null, '?' + queryParams.toString());
+
 	const spinner = document.querySelector('.globe');
 	responseBox.classList.remove('visible');
 
@@ -53,7 +67,7 @@ async function getCountry() {
 
 		responseBox.classList.add('visible');
 	} catch (e) {
-		console.error(e)
+		console.error(e);
 		const errorMessage = document.createElement('p');
 		errorMessage.classList.add('error-message');
 		errorMessage.textContent = 'Please insert a country name!';
@@ -75,7 +89,9 @@ function addGeneralInfo({
 }) {
 	return `${name} (${nativeName}) is situated in the region of ${subregion || 'N/A'}.
     It has a population of ${population.toLocaleString()} people.
-    The capital is ${capital || 'N/A'}, ${getCurrency(currencies)}. ${demonym || name} ${getLanguages(languages)}.`;
+    The capital is ${capital || 'N/A'}, ${getCurrency(currencies)}. ${
+		demonym || name
+	} ${getLanguages(languages)}.`;
 }
 
 function getCurrency(currencies) {
