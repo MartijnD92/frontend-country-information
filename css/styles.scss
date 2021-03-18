@@ -1,0 +1,239 @@
+@import 'variables';
+@import url('https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap');
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	padding: 0 50px;
+	font-family: 'Hammersmith One', sans-serif;
+	background: $bg-color;
+	color: $body-color;
+}
+
+h1,
+h2 {
+	color: $title-color;
+}
+
+header {
+	width: 100%;
+	height: 50px;
+}
+
+nav {
+	ul {
+		display: flex;
+		justify-content: flex-end;
+		margin: 20px;
+		list-style: none;
+
+		li {
+			padding: 20px;
+		}
+	}
+
+	a {
+		text-decoration: none;
+		color: $body-color;
+
+		&.active {
+			border-bottom: 3px solid $body-color;
+		}
+	}
+}
+
+.title {
+	margin-top: 1em;
+	font-size: 3em;
+}
+
+.globe {
+	width: 300px;
+}
+
+.flex {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.all-container {
+	max-width: 500px;
+}
+
+.static-container {
+	width: 420px;
+}
+
+.search-container {
+	display: flex;
+	width: 100%;
+}
+
+.search-input,
+.search-btn,
+.response-box {
+	box-shadow: $box-shadow;
+}
+
+.search-input {
+	width: 100%;
+	border: 2px solid $border-color;
+	border-right: 0;
+	border-radius: 5px 0 0 5px;
+	padding: 0.5em 1em;
+	margin-right: 0;
+	background: $bg-color--alt;
+}
+
+.search-btn {
+	padding: 0.5em 1em;
+	margin-left: 0;
+	border: 2px solid $search-btn-bg-color;
+	border-radius: 0 5px 5px 0;
+	background: $search-btn-bg-color;
+	color: $search-btn-text-color;
+	text-transform: uppercase;
+
+	&:active {
+		background: $search-btn-bg-color--light;
+	}
+}
+
+.response-box {
+	width: 100%;
+	background: $bg-color--alt;
+	padding: 1em 2em;
+	margin: 2em;
+	visibility: hidden;
+}
+
+.visible {
+	visibility: visible;
+}
+
+.error-message {
+	margin: 2em;
+}
+
+.title-container {
+	display: flex;
+}
+
+.title-container * {
+	margin: 1em;
+}
+
+.flag {
+	width: 60px;
+	height: 40px;
+	border-radius: 2px;
+}
+
+.response-ruler {
+	height: 1px;
+	background: $ruler-color;
+	border: 0;
+}
+
+.description-container {
+	margin: 1em;
+}
+
+/*******
+WORLD REGIONS
+********/
+
+.worldmap {
+	max-width: 1000px;
+}
+
+.arrow-down {
+	width: 4rem;
+	height: 4rem;
+	display: block;
+	margin-top: -90px;
+	color: $title-color;
+	cursor: pointer;
+	animation: move-down 500ms infinite alternate cubic-bezier(0.41, -0.42, 1, 1.97);
+}
+
+@keyframes move-down {
+	50%,
+	100% {
+		transform: translateY(10%);
+	}
+}
+
+.country-container {
+	width: 100%;
+	margin: 3em;
+	padding: 2em;
+	font-size: 0.8rem;
+	background: $bg-color--alt;
+	border: 1px solid $border-color;
+}
+
+.list {
+	column-count: 3;
+}
+
+.list li {
+	padding: 10px 0 0 10px;
+	display: flex;
+	align-items: center;
+}
+
+.country-flag {
+	width: 30px;
+	height: 1em;
+	margin-right: 10px;
+}
+
+.country-link {
+	text-decoration: none;
+	color: $body-color;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+.europe {
+	background: $europe;
+}
+
+.africa {
+	background: $africa;
+}
+
+.americas {
+	background: $americas;
+}
+
+.asia {
+	background: $asia;
+}
+
+.oceania {
+	background: $oceania;
+}
+
+.polar {
+	background: $polar;
+}
