@@ -4,8 +4,7 @@ async function sortCountries() {
 		const sortedCountries = result.data.sort(
 			(country1, country2) => country1.population - country2.population
 		);
-		for (country of sortedCountries) {
-			const { name, flag, region } = country;
+		for ({ name, flag, region } of sortedCountries) {
 			addCountryToList(name, flag, region);
 		}
 	} catch (e) {
@@ -25,9 +24,9 @@ function addCountryToList(countryName, countryFlag, countryRegion) {
 	link.className = 'country-link';
 
 	name.textContent = countryName;
-	colorCodeCountry(name, countryRegion);
+	setcolorCodeCountry(name, countryRegion);
 	flag.setAttribute('src', countryFlag);
-	link.setAttribute('href', `../?country=${countryName}`);
+	link.setAttribute('href', `/?country=${countryName}`);
 
 	link.appendChild(flag);
 	link.appendChild(name);
@@ -35,7 +34,7 @@ function addCountryToList(countryName, countryFlag, countryRegion) {
 	list.appendChild(country);
 }
 
-function colorCodeCountry(nameElement, countryRegion) {
+function setcolorCodeCountry(nameElement, countryRegion) {
 	switch (countryRegion) {
 		case 'Africa':
 			nameElement.classList.add('africa');
