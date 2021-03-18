@@ -24,7 +24,7 @@ function addCountryToList(countryName, countryFlag, countryRegion) {
 	link.className = 'country-link';
 
 	name.textContent = countryName;
-	setcolorCodeCountry(name, countryRegion);
+	setColorCodeCountry(name, countryRegion);
 	flag.setAttribute('src', countryFlag);
 	link.setAttribute('href', `/?country=${countryName}`);
 
@@ -34,7 +34,7 @@ function addCountryToList(countryName, countryFlag, countryRegion) {
 	list.appendChild(country);
 }
 
-function setcolorCodeCountry(nameElement, countryRegion) {
+function setColorCodeCountry(nameElement, countryRegion) {
 	switch (countryRegion) {
 		case 'Africa':
 			nameElement.classList.add('africa');
